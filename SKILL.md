@@ -14,6 +14,8 @@ description: Operate Autodesk AutoCAD on Windows to inspect, draw, move, and sav
 3. 通过几何属性核对操作结果。改图前定位锚点、记录原坐标与关联尺寸；改图后核对同一对象的坐标、面积或边长。中途失败先检查图纸的实际状态及受影响对象，再决定如何恢复。
 4. 原图内保存和另存是不同操作。按用户要求保存，并核对目标路径、文件及原生读回结果；需要精确交付时可在不影响原会话的情况下重新打开输出副本核验。详细规则见 [保存与案例复盘](references/experience-index.md)。
 
+**保留文件对话框：** 不要把 `FILEDIA` 设置为 `0`，临时设置也不允许。执行 `NETLOAD`、打开、另存等需要文件窗口的操作时，按实际弹窗填写路径，不为自动化切换成命令行提示。若当前 `FILEDIA` 已是 `0` 且需要弹窗，告知用户；只有明确获准后才设为 `1`。
+
 ## .NET 参数绘图插件
 
 AutoCAD 2024 x64 的可选 [CodexAutoCAD 插件](references/dotnet-plugin.md) 提供 `CODEXRECT` 矩形参数窗口。交互命令通过 AutoCAD 自己的窗口打开；弹窗可见时核对输入与确认/取消按钮，等待命令结束后再用 ActiveX 读回几何。常规查询、绘图、平移和保存仍走 ActiveX。新增其他弹窗命令需要分别验证。
